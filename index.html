@@ -181,7 +181,7 @@ function finishLove(){
     <b><i>Happy Valentine's Day 💖</i></b></h2>
     <img src='photo.jpg' class='final-photo'>
     <h1 style='margin-top:20px;font-family:"Dancing Script",cursive;font-weight:bold;font-style:italic'>
-    <b><i>I LOVE YOU BABU❤️</i></b></h1>
+    <b><i>I LOVE YOU BABU ❤️</i></b></h1>
     <p style="font-size:20px;margin-top:15px">Forever yours — no escape now 😌💍</p>
   `;
 
@@ -225,4 +225,14 @@ function heart(){
  const h=document.createElement('div');
  h.className='heart';
  h.innerHTML='❤';
- 
+ h.style.left=Math.random()*100+'vw';
+ h.style.fontSize=(10+Math.random()*30)+'px';
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),7000);
+}
+setInterval(heart,300);
+
+</script>
+
+</body>
+</html>
