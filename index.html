@@ -16,24 +16,23 @@ display:flex;
 align-items:center;
 justify-content:center;
 background:linear-gradient(135deg, skyblue, white);
-color:white;
 font-family:'Segoe UI',sans-serif;
 overflow:hidden
 }
 
 .card{
 background:linear-gradient(135deg,#ffb88c,#ff6a88);
-color:white;
 padding:50px 60px;
 border-radius:16px;
 text-align:center;
 box-shadow:0 0 40px rgba(255,75,110,.25);
 width:80vw;
 max-width:700px;
-min-height:260px
+min-height:260px;
+color:white
 }
 
-h1{color:#000000;font-style:italic}
+h1{color:black;font-style:italic}
 
 button{
 padding:12px 22px;
@@ -82,23 +81,26 @@ box-shadow:0 8px 20px rgba(0,0,0,.25);
 
 <div class="card" id="card">
   <h1>Hey Babu❤️</h1>
-  <p id="text" style="font-family:'Dancing Script',cursive;font-size:32px;color:black;">
+  <p style="font-family:'Dancing Script',cursive;font-size:32px;color:black;">
     <b><i>Will you be my Valentine??</i></b>
   </p>
 
   <div id="buttons">
-    <button id="yesBtn" class="yes" onclick="startQuiz()">Yes ❤️</button>
+    <button class="yes" onclick="startQuiz()">Yes ❤️</button>
     <button class="no" onmouseover="moveNo(this)" ontouchstart="moveNo(this)">No 😠</button>
   </div>
 </div>
+
+<audio id="music" src="music.mp3"></audio>
 
 <script>
 
 function moveNo(b){
   b.style.position='fixed';
-  b.style.left=Math.random()*90+'vw';
-  b.style.top=Math.random()*90+'vh';
-  b.style.transition='all .15s ease';
+  b.style.left=Math.random()*80+'vw';
+  b.style.top=Math.random()*80+'vh';
+  b.style.transform='scale(0.9)';
+  setTimeout(()=>b.style.transform='scale(1)',150);
 }
 
 const questions=[
@@ -114,9 +116,9 @@ const questions=[
 let qIndex=0;
 
 function startQuiz(){
-  alert("working ❤️");
-  qIndex=0;
   document.getElementById('buttons').remove();
+  document.getElementById("music").play();
+  qIndex=0;
   showQuestion();
 }
 
@@ -124,10 +126,7 @@ function showQuestion(){
   const card=document.getElementById('card');
   const q=questions[qIndex];
 
-  if(!q){
-    finishLove();
-    return;
-  }
+  if(!q){ finishLove(); return; }
 
   card.innerHTML=`<h2>${q.q}</h2><div id='opts'></div><p id='response'></p>`;
 
@@ -148,21 +147,16 @@ function checkAnswer(choice){
   const res=document.getElementById('response');
 
   if(choice===questions[qIndex].correct){
-    if([0,1,2,4,5].includes(qIndex)){
-      res.textContent='';
-    }else{
-      res.textContent='Aww you remember 🥹❤️';
-    }
-    setTimeout(nextQ,1200);
+    res.textContent='Aww you remember 🥹❤️';
   }else{
-    res.textContent="Hmm wrong 😤 wait… we'll discuss later!";
-    setTimeout(nextQ,1500);
+    res.textContent='Hehe close enough 😄';
   }
+
+  setTimeout(nextQ,1300);
 }
 
 function nextQ(){
   qIndex++;
-
   if(qIndex<questions.length){
     showQuestion();
   }else{
@@ -177,6 +171,7 @@ function finishLove(){
     <img src='photo.jpg' class='final-photo'>
     <h1 style='margin-top:20px;font-family:"Dancing Script",cursive;font-weight:bold;font-style:italic'>
     <b><i>I LOVE YOU ❤️</i></b></h1>
+    <p style="font-size:20px;margin-top:15px">Forever yours — no escape now 😌💍</p>
   `;
 }
 
