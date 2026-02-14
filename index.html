@@ -161,4 +161,71 @@ function checkAnswer(choice){
 
 function nextQ(){
   qIndex++;
-  if(qIndex<que
+  if(qIndex<questions.length){
+    showQuestion();
+  }else{
+    finishLove();
+  }
+}
+
+function finishLove(){
+  document.getElementById('card').innerHTML=`
+    <h2 style='margin-bottom:20px;font-weight:bold;font-style:italic'>
+    <b><i>Happy Valentine's Day 💖</i></b></h2>
+    <img src='photo.jpg' class='final-photo'>
+    <h1 style='margin-top:20px;font-family:"Dancing Script",cursive;font-weight:bold;font-style:italic'>
+    <b><i>I LOVE YOU BABU ❤️</i></b></h1>
+    <p style="font-size:20px;margin-top:15px">Forever yours — no escape now 😌💍</p>
+  `;
+
+  startConfetti();
+}
+
+function startConfetti(){
+  for(let i=0;i<120;i++){
+    createConfetti();
+  }
+}
+
+function createConfetti(){
+  const conf=document.createElement('div');
+  conf.style.position='fixed';
+  conf.style.width='8px';
+  conf.style.height='14px';
+  conf.style.top='-20px';
+  conf.style.left=Math.random()*100+'vw';
+  conf.style.background=`hsl(${Math.random()*360},100%,60%)`;
+  conf.style.opacity=Math.random()+0.5;
+  conf.style.transform=`rotate(${Math.random()*360}deg)`;
+  conf.style.borderRadius='2px';
+  conf.style.zIndex='9999';
+
+  document.body.appendChild(conf);
+
+  const fall=3+Math.random()*3;
+  conf.animate([
+    {transform:`translateY(0) rotate(0deg)`},
+    {transform:`translateY(110vh) rotate(${360+Math.random()*720}deg)`}
+  ],{
+    duration:fall*1000,
+    easing:'linear'
+  });
+
+  setTimeout(()=>conf.remove(),fall*1000);
+}
+
+function heart(){
+ const h=document.createElement('div');
+ h.className='heart';
+ h.innerHTML='❤';
+ h.style.left=Math.random()*100+'vw';
+ h.style.fontSize=(10+Math.random()*30)+'px';
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),7000);
+}
+setInterval(heart,300);
+
+</script>
+
+</body>
+</html>
