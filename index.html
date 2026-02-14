@@ -91,11 +91,27 @@ box-shadow:0 8px 20px rgba(0,0,0,.25);
   </div>
 </div>
 
-<audio id="music" preload="auto">
-  <source src="./music.mp3" type="audio/mpeg">
-</audio>
-
 <script>
+
+let bgMusic=null;
+let musicStarted=false;
+
+function startQuiz(){
+
+  // MOBILE SAFE AUDIO START
+  if(!musicStarted){
+    musicStarted=true;
+
+    bgMusic=new Audio("music.mp3");
+    bgMusic.volume=0.7;
+    bgMusic.loop=true;
+    bgMusic.play().catch(()=>{});
+  }
+
+  document.getElementById('buttons').remove();
+  qIndex=0;
+  showQuestion();
+}
 
 function moveNo(b){
   b.style.position='fixed';
@@ -116,21 +132,6 @@ const questions=[
 ];
 
 let qIndex=0;
-
-function startQuiz(){
-
-  const m=document.getElementById("music");
-  m.currentTime=0;
-  m.volume=0.7;
-
-  m.play().catch(()=>{});
-
-  setTimeout(()=>{
-    document.getElementById('buttons').remove();
-    qIndex=0;
-    showQuestion();
-  },150);
-}
 
 function showQuestion(){
   const card=document.getElementById('card');
@@ -180,7 +181,7 @@ function finishLove(){
     <b><i>Happy Valentine's Day 💖</i></b></h2>
     <img src='photo.jpg' class='final-photo'>
     <h1 style='margin-top:20px;font-family:"Dancing Script",cursive;font-weight:bold;font-style:italic'>
-    <b><i>I LOVE YOU BABU ❤️</i></b></h1>
+    <b><i>I LOVE YOU BABU❤️</i></b></h1>
     <p style="font-size:20px;margin-top:15px">Forever yours — no escape now 😌💍</p>
   `;
 
@@ -224,7 +225,4 @@ function heart(){
  const h=document.createElement('div');
  h.className='heart';
  h.innerHTML='❤';
- h.style.left=Math.random()*100+'vw';
- h.style.fontSize=(10+Math.random()*30)+'px';
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),70
+ 
