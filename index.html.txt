@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For My Babu ❤️</title>
+<style>
+  body{
+    margin:0;height:100vh;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at top,#1a0024,#000814);
+    color:white;font-family:'Segoe UI',sans-serif;overflow:hidden;
+  }
+  .card{background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);padding:40px;border-radius:20px;text-align:center;box-shadow:0 0 40px rgba(255,75,110,.25);max-width:420px}
+  h1{color:#ff7aa2}
+  p{font-size:18px;min-height:60px}
+  button{padding:12px 22px;border:none;border-radius:25px;margin:10px;font-size:16px;cursor:pointer}
+  .yes{background:#ff4b6e;color:white}
+  .no{background:#ddd}
+  .heart{position:absolute;color:#ff7aa2;animation:float 7s linear infinite}
+  @keyframes float{from{transform:translateY(100vh);opacity:1}to{transform:translateY(-10vh);opacity:0}}
+  #photo{display:none;width:220px;border-radius:15px;margin-top:15px;box-shadow:0 0 20px rgba(255,255,255,.3)}
+  canvas{position:fixed;top:0;left:0;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="fire"></canvas>
+<div class="card" id="card">
+<h2 id="greet"></h2>
+<h1>Hey Babu ❤️</h1>
+<p id="text"></p>
+<div id="buttons">
+<button class="yes" onclick="sayYes()">Yes 💖</button>
+<button class="no" onmouseover="moveNo(this)">No 🙈</button>
+</div>
+<img id="photo" src="photo.jpg" />
+</div>
+<script>
+const message=`Nuvvu vachinappati nundi life konchem beautiful ayyindi...
+You are not just my husband — naa best friend, naa support system, naa home 🥹
+Mana marriage date: OUR_DATE 💍
+Sometimes nenu drama chestha… sometimes silent untanu…
+But every time you stay, you understand ❤️
+So today malli adugutunna… will you be my Valentine Babu?`;
+// dynamic greeting + visit counter
+const hour=new Date().getHours();
+let greetText=hour<12?"Good Morning Babu ☀️":hour<17?"Good Afternoon Babu 🌤️":"Good Evening Babu 🌙";
+let visits=localStorage.getItem('babuVisits')||0;visits++;localStorage.setItem('babuVisits',visits);
+document.getElementById('greet').innerText=greetText+" — you opened this " + visits + " times ❤️";
+
+let i=0;function type(){if(i<message.length){document.getElementById('text').innerHTML+=message.charAt(i);i++;setTimeout(type,35)}}type();
+function sayYes(){document.getElementById('buttons').style.display='none';document.getElementById('photo').style.display='block';loveTyping();startFireworks();}
+function loveTyping(){let msg='I love you ❤️';let j=0;let el=document.createElement('h2');el.style.color='#ff9ac0';document.getElementById('card').appendChild(el);(function t(){if(j<msg.length){el.innerHTML+=msg[j++];setTimeout(t,120)}})()}
+function moveNo(b){b.style.position='absolute';b.style.left=Math.random()*80+'vw';b.style.top=Math.random()*80+'vh'}
+function heart(){const h=document.createElement('div');h.className='heart';h.innerHTML='❤';h.style.left=Math.random()*100+'vw';h.style.fontSize=(10+Math.random()*30)+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),7000)}setInterval(heart,300);
+const c=document.getElementById('fire'),ctx=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;let particles=[];function startFireworks(){setInterval(()=>{for(let i=0;i<80;i++)particles.push({x:c.width/2,y:c.height/2,dx:(Math.random()-0.5)*6,dy:(Math.random()-0.5)*6,life:100})},600)}
+function draw(){ctx.clearRect(0,0,c.width,c.height);particles.forEach(p=>{ctx.fillStyle='white';ctx.fillRect(p.x,p.y,2,2);p.x+=p.dx;p.y+=p.dy;p.life--});particles=particles.filter(p=>p.life>0);requestAnimationFrame(draw)}draw();
+</script>
+</body>
+</html>
