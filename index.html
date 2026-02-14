@@ -4,6 +4,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#ff6a88">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
 <title>Valentine ❤️</title>
 
 <style>
@@ -176,7 +180,7 @@ function nextQ(){
 function finishLove(){
   document.getElementById('card').innerHTML=`
     <h2 style='margin-bottom:20px;font-weight:bold;font-style:italic'>
-    <b><i>Happy Valentine's Day 💖</i></b></h2>
+    <b><i>Happy Valentine's Day, My Love 💖</i></b></h2>
     <img src='photo.jpg' class='final-photo'>
     <h1 style='margin-top:20px;font-family:"Dancing Script",cursive;font-weight:bold;font-style:italic'>
     <b><i>I LOVE YOU BABU ❤️</i></b></h1>
@@ -186,7 +190,6 @@ function finishLove(){
   startConfetti();
 }
 
-/* LIGHT CONFETTI */
 function startConfetti(){
   for(let i=0;i<40;i++){
     createConfetti();
@@ -220,7 +223,6 @@ function createConfetti(){
   },20);
 }
 
-/* LIGHT HEARTS */
 function heart(){
  const h=document.createElement('div');
  h.className='heart';
