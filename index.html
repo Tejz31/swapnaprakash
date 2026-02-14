@@ -91,7 +91,9 @@ box-shadow:0 8px 20px rgba(0,0,0,.25);
   </div>
 </div>
 
-<audio id="music" src="music.mp3" preload="auto"></audio>
+<audio id="music" preload="auto">
+  <source src="./music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
@@ -116,22 +118,18 @@ const questions=[
 let qIndex=0;
 
 function startQuiz(){
-  document.getElementById('buttons').remove();
 
   const m=document.getElementById("music");
-  m.volume=0.65;
+  m.currentTime=0;
+  m.volume=0.7;
 
-  // mobile safe autoplay
-  const playPromise = m.play();
-  if(playPromise !== undefined){
-    playPromise.catch(()=>{
-      document.body.addEventListener("click", ()=>m.play(), {once:true});
-      document.body.addEventListener("touchstart", ()=>m.play(), {once:true});
-    });
-  }
+  m.play().catch(()=>{});
 
-  qIndex=0;
-  showQuestion();
+  setTimeout(()=>{
+    document.getElementById('buttons').remove();
+    qIndex=0;
+    showQuestion();
+  },150);
 }
 
 function showQuestion(){
@@ -229,11 +227,4 @@ function heart(){
  h.style.left=Math.random()*100+'vw';
  h.style.fontSize=(10+Math.random()*30)+'px';
  document.body.appendChild(h);
- setTimeout(()=>h.remove(),7000);
-}
-setInterval(heart,300);
-
-</script>
-
-</body>
-</html>
+ setTimeout(()=>h.remove(),70
