@@ -91,7 +91,7 @@ box-shadow:0 8px 20px rgba(0,0,0,.25);
   </div>
 </div>
 
-<audio id="music" src="music.mp3"></audio>
+<audio id="music" src="music.mp3" preload="auto"></audio>
 
 <script>
 
@@ -120,7 +120,15 @@ function startQuiz(){
 
   const m=document.getElementById("music");
   m.volume=0.65;
-  m.play();
+
+  // mobile safe autoplay
+  const playPromise = m.play();
+  if(playPromise !== undefined){
+    playPromise.catch(()=>{
+      document.body.addEventListener("click", ()=>m.play(), {once:true});
+      document.body.addEventListener("touchstart", ()=>m.play(), {once:true});
+    });
+  }
 
   qIndex=0;
   showQuestion();
